@@ -16,6 +16,9 @@ namespace SimpleSpaceShooter
         Vector2 enemyPos = new Vector2(300, 100);
         int enemyDirection = -1;
 
+        Texture2D shot;
+        Vector2 shotPos = new Vector2(0, 0);
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -37,6 +40,7 @@ namespace SimpleSpaceShooter
             // TODO: use this.Content to load your game content here
             player = Content.Load<Texture2D>("spaceship96");
             enemy = Content.Load<Texture2D>("alien");
+            shot = Content.Load<Texture2D>("blasterbolt");
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,18 +58,26 @@ namespace SimpleSpaceShooter
                 enemyDirection *= -1;
             enemyPos.X += enemyDirection;
 
+            if(kstate.IsKeyDown(Keys.Space)) {
+                shotPos.X = playerPos.X;
+                shotPos.Y = playerPos.Y;
+            }
+
+            shotPos.Y-=8;
+
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(player, playerPos, Color.White);
-
             _spriteBatch.Draw(enemy, enemyPos, Color.White);
+            _spriteBatch.Draw(shot, shotPos, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
