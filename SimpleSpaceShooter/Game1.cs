@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace SimpleSpaceShooter
 {
@@ -19,11 +20,16 @@ namespace SimpleSpaceShooter
         Texture2D shot;
         Vector2 shotPos = new Vector2(0, 0);
 
+        List<Texture2D> shots;
+        List<Vector2> shotPositions;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            shots = new List<Texture2D>();
+            shotPositions = new List<Vector2>();
         }
 
         protected override void Initialize()
