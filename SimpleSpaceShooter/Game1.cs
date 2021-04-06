@@ -12,16 +12,19 @@ namespace SimpleSpaceShooter
 
         Texture2D player;
         Vector2 playerPos = new Vector2(300, 350);
+        Rectangle playerRect;
 
         Texture2D enemy;
         Vector2 enemyPos = new Vector2(300, 100);
         int enemyDirection = -1;
+        Rectangle enemyRect;
 
         Texture2D shot;
         Vector2 shotPos = new Vector2(0, 0);
 
         List<Texture2D> shots;
         List<Vector2> shotPositions;
+        Rectangle shotRect;
 
         public Game1()
         {
@@ -47,6 +50,9 @@ namespace SimpleSpaceShooter
             player = Content.Load<Texture2D>("spaceship96");
             enemy = Content.Load<Texture2D>("alien");
             shot = Content.Load<Texture2D>("blasterbolt");
+            playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, player.Width, player.Height);
+            shotRect = new Rectangle((int)shotPos.X, (int)shotPos.Y, shot.Width, shot.Height);
+            enemyRect = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemy.Width, enemy.Height);
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,13 +69,19 @@ namespace SimpleSpaceShooter
             if (enemyPos.X > 700 || enemyPos.X < 0)
                 enemyDirection *= -1;
             enemyPos.X += enemyDirection;
+            enemyRect.X += enemyDirection;
 
-            if(kstate.IsKeyDown(Keys.Space)) {
+            if (kstate.IsKeyDown(Keys.Space)) {
                 shotPos.X = playerPos.X;
                 shotPos.Y = playerPos.Y;
             }
 
             shotPos.Y-=8;
+            shotRect.Y -= 8;
+
+            if(shotRect.Intersects(enemyRect)) {
+                enemyPos.Y -= 1;
+            }
 
 
             base.Update(gameTime);
