@@ -11,20 +11,18 @@ namespace SimpleSpaceShooter
         private SpriteBatch _spriteBatch;
 
         Texture2D player;
-        Vector2 playerPos = new Vector2(300, 350);
-        Rectangle playerRect;
+        Rectangle playerRect = new Rectangle(300,350,80,80);
 
         Texture2D enemy;
-        Vector2 enemyPos = new Vector2(300, 100);
         int enemyDirection = -1;
-        Rectangle enemyRect;
+        Rectangle enemyRect = new Rectangle(300,100, 50, 50);
 
         Texture2D shot;
-        Vector2 shotPos = new Vector2(0, 0);
+        Rectangle shotRect = new Rectangle(0, 0, 5, 20);
 
         List<Texture2D> shots;
         List<Vector2> shotPositions;
-        Rectangle shotRect;
+
 
         public Game1()
         {
@@ -50,9 +48,9 @@ namespace SimpleSpaceShooter
             player = Content.Load<Texture2D>("spaceship96");
             enemy = Content.Load<Texture2D>("alien");
             shot = Content.Load<Texture2D>("blasterbolt");
-            playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, player.Width, player.Height);
-            shotRect = new Rectangle((int)shotPos.X, (int)shotPos.Y, shot.Width, shot.Height);
-            enemyRect = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemy.Width, enemy.Height);
+            //playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, player.Width, player.Height);
+            //shotRect = new Rectangle((int)shotPos.X, (int)shotPos.Y, shot.Width, shot.Height);
+            //enemyRect = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemy.Width, enemy.Height);
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,28 +60,29 @@ namespace SimpleSpaceShooter
 
             KeyboardState kstate = Keyboard.GetState();
             if (kstate.IsKeyDown(Keys.Left))
-                playerPos.X--;
+                playerRect.X--;
             if (kstate.IsKeyDown(Keys.Right))
-                playerPos.X++;
+                playerRect.X++;
 
-            if (enemyPos.X > 700 || enemyPos.X < 0)
+            
+            if (enemyRect.X > 700 || enemyRect.X < 0)
                 enemyDirection *= -1;
-            enemyPos.X += enemyDirection;
             enemyRect.X += enemyDirection;
+            enemyRect.X += enemyDirection;
+            
 
             if (kstate.IsKeyDown(Keys.Space)) {
-                shotPos.X = playerPos.X;
-                shotPos.Y = playerPos.Y;
+                shotRect.X = playerRect.X;
+                shotRect.Y = playerRect.Y;
             }
 
-            shotPos.Y-=8;
+            shotRect.Y-=8;
             shotRect.Y -= 8;
 
             if(shotRect.Intersects(enemyRect)) {
-                enemyPos.Y -= 1;
+                enemyRect.Y -= 1;
             }
-
-
+            
             base.Update(gameTime);
         }
 
@@ -93,9 +92,9 @@ namespace SimpleSpaceShooter
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(player, playerPos, Color.White);
-            _spriteBatch.Draw(enemy, enemyPos, Color.White);
-            _spriteBatch.Draw(shot, shotPos, Color.White);
+            _spriteBatch.Draw(player, playerRect, Color.White);
+            _spriteBatch.Draw(enemy, enemyRect, Color.White);
+            _spriteBatch.Draw(shot, shotRect, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
