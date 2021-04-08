@@ -15,13 +15,11 @@ namespace SimpleSpaceShooter
 
         Texture2D enemy;
         int enemyDirection = -1;
-        Rectangle enemyRect = new Rectangle(300,100, 50, 50);
+        Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
 
         Texture2D shot;
-        Rectangle shotRect = new Rectangle(0, 0, 5, 20);
 
-        List<Texture2D> shots;
-        List<Vector2> shotPositions;
+        List<Rectangle> shotRectangles;
 
 
         public Game1()
@@ -29,8 +27,7 @@ namespace SimpleSpaceShooter
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            shots = new List<Texture2D>();
-            shotPositions = new List<Vector2>();
+            shotRectangles = new List<Rectangle>();
         }
 
         protected override void Initialize()
@@ -48,9 +45,6 @@ namespace SimpleSpaceShooter
             player = Content.Load<Texture2D>("spaceship96");
             enemy = Content.Load<Texture2D>("alien");
             shot = Content.Load<Texture2D>("blasterbolt");
-            //playerRect = new Rectangle((int)playerPos.X, (int)playerPos.Y, player.Width, player.Height);
-            //shotRect = new Rectangle((int)shotPos.X, (int)shotPos.Y, shot.Width, shot.Height);
-            //enemyRect = new Rectangle((int)enemyPos.X, (int)enemyPos.Y, enemy.Width, enemy.Height);
         }
 
         protected override void Update(GameTime gameTime)
@@ -72,17 +66,19 @@ namespace SimpleSpaceShooter
             
 
             if (kstate.IsKeyDown(Keys.Space)) {
-                shotRect.X = playerRect.X;
-                shotRect.Y = playerRect.Y;
+                Rectangle shotRect = new Rectangle(playerRect.X, playerRect.X, 5, 20);
+                shotRectangles.Add(shotRect);
             }
 
-            shotRect.Y-=8;
-            shotRect.Y -= 8;
-
-            if(shotRect.Intersects(enemyRect)) {
-                enemyRect.Y -= 1;
+            for(int i=0;i<shotRectangles.Count;i++)
+            {
+                //shotRectangles[i].Y=4;
+                if (shotRectangles[i].Intersects(enemyRect))
+                {
+                    enemyRect.Y -= 1;
+                }
             }
-            
+
             base.Update(gameTime);
         }
 
@@ -94,7 +90,8 @@ namespace SimpleSpaceShooter
             _spriteBatch.Begin();
             _spriteBatch.Draw(player, playerRect, Color.White);
             _spriteBatch.Draw(enemy, enemyRect, Color.White);
-            _spriteBatch.Draw(shot, shotRect, Color.White);
+            foreach(Rectangle shotRect in shotRectangles)
+                _spriteBatch.Draw(shot, shotRect, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
