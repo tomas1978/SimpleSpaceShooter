@@ -72,7 +72,8 @@ namespace SimpleSpaceShooter
 
             for(int i=0;i<shotRectangles.Count;i++)
             {
-                //shotRectangles[i].Y=4;
+                Rectangle r = shotRectangles[i];
+                shotRectangles[i] = new Rectangle(r.X, r.Y - 5, r.Width, r.Height);
                 if (shotRectangles[i].Intersects(enemyRect))
                 {
                     enemyRect.Y -= 1;
