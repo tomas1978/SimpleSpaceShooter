@@ -82,6 +82,7 @@ namespace SimpleSpaceShooter
                 if (shotRectangles[i].Intersects(enemyRect))
                 {
                     enemyRect.Y -= 1;
+                    score++;
                 }
             }
 
@@ -94,7 +95,7 @@ namespace SimpleSpaceShooter
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(scoreFont, "Score: ", scorePos, Color.White);
+            _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             _spriteBatch.Draw(player, playerRect, Color.White);
             _spriteBatch.Draw(enemy, enemyRect, Color.White);
             foreach(Rectangle shotRect in shotRectangles)
