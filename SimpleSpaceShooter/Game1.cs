@@ -22,9 +22,7 @@ namespace SimpleSpaceShooter
         Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
 
         Texture2D shot;
-
-        List<Rectangle> shotRectangles;
-
+         List<Rectangle> shotRectangles;
 
         public Game1()
         {
@@ -63,19 +61,20 @@ namespace SimpleSpaceShooter
             if (kstate.IsKeyDown(Keys.Right))
                 playerRect.X++;
 
-            
             if (enemyRect.X > 700 || enemyRect.X < 0)
                 enemyDirection *= -1;
             enemyRect.X += enemyDirection;
             enemyRect.X += enemyDirection;
             
-
             if (kstate.IsKeyDown(Keys.Space)) {
-                Rectangle shotRect = new Rectangle(playerRect.X, playerRect.X, 5, 20);
-                shotRectangles.Add(shotRect);
+                Rectangle shotRect1 = new Rectangle(playerRect.X+8, playerRect.Y+20, 5, 20);
+                Rectangle shotRect2 = new Rectangle(playerRect.X+playerRect.Width-15, playerRect.Y+20, 5, 20);
+                shotRectangles.Add(shotRect1);
+                shotRectangles.Add(shotRect2);
+
             }
 
-            for(int i=0;i<shotRectangles.Count;i++)
+            for (int i=0;i<shotRectangles.Count;i++)
             {
                 Rectangle r = shotRectangles[i];
                 shotRectangles[i] = new Rectangle(r.X, r.Y - 5, r.Width, r.Height);
