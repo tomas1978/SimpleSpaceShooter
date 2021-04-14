@@ -17,6 +17,8 @@ namespace SimpleSpaceShooter
         Texture2D player;
         Rectangle playerRect = new Rectangle(300,350,80,80);
 
+        Sprite playerSpr;
+
         Texture2D enemy;
         int enemyDirection = -1;
         Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
@@ -48,6 +50,7 @@ namespace SimpleSpaceShooter
             enemy = Content.Load<Texture2D>("alien");
             shot = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
+            playerSpr = new Sprite(300, 350, player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -96,6 +99,7 @@ namespace SimpleSpaceShooter
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             _spriteBatch.Draw(player, playerRect, Color.White);
+            _spriteBatch.Draw(playerSpr.spriteTexture, playerSpr.spriteRect, Color.White);
             _spriteBatch.Draw(enemy, enemyRect, Color.White);
             foreach(Rectangle shotRect in shotRectangles)
                 _spriteBatch.Draw(shot, shotRect, Color.White);
