@@ -14,9 +14,6 @@ namespace SimpleSpaceShooter
         SpriteFont scoreFont;
         Vector2 scorePos = new Vector2(5, 5);
 
-        Texture2D player;
-        Rectangle playerRect = new Rectangle(300,350,80,80);
-
         Sprite playerSpr;
 
         Texture2D enemy;
@@ -46,7 +43,7 @@ namespace SimpleSpaceShooter
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            player = Content.Load<Texture2D>("spaceship96");
+            Texture2D player = Content.Load<Texture2D>("spaceship96");
             enemy = Content.Load<Texture2D>("alien");
             shot = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
@@ -61,12 +58,10 @@ namespace SimpleSpaceShooter
             KeyboardState kstate = Keyboard.GetState();
             if (kstate.IsKeyDown(Keys.Left))
             {
-                playerRect.X--;
                 playerSpr.Move(-1,0);
             }
             if (kstate.IsKeyDown(Keys.Right))
             {
-                playerRect.X++;
                 playerSpr.Move(1, 0);
             }
 
@@ -76,8 +71,10 @@ namespace SimpleSpaceShooter
             enemyRect.X += enemyDirection;
             
             if (kstate.IsKeyDown(Keys.Space)) {
-                Rectangle shotRect1 = new Rectangle(playerRect.X+8, playerRect.Y+20, 5, 20);
-                Rectangle shotRect2 = new Rectangle(playerRect.X+playerRect.Width-15, playerRect.Y+20, 5, 20);
+                Rectangle shotRect1 = new Rectangle(playerSpr.spriteRect.X + 8, 
+                                        playerSpr.spriteRect.Y + 20, 5, 20);
+                Rectangle shotRect2 = new Rectangle(playerSpr.spriteRect.X + playerSpr.spriteRect.Width-15, 
+                                        playerSpr.spriteRect.Y+20, 5, 20);
                 shotRectangles.Add(shotRect1);
                 shotRectangles.Add(shotRect2);
             }
@@ -103,7 +100,6 @@ namespace SimpleSpaceShooter
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
-            _spriteBatch.Draw(player, playerRect, Color.White);
             _spriteBatch.Draw(playerSpr.spriteTexture, playerSpr.spriteRect, Color.White);
             _spriteBatch.Draw(enemy, enemyRect, Color.White);
             foreach(Rectangle shotRect in shotRectangles)
