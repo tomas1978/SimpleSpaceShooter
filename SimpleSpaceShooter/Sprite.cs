@@ -25,6 +25,11 @@ namespace SimpleSpaceShooter
             rect.Y += y;
         }
 
+        public void Move2(Vector2 mVector)
+        {
+            rect.Location = new Point((int)mVector.X, (int)mVector.Y);
+        }
+
         public Texture2D spriteTexture
         {
             get { return texture; }

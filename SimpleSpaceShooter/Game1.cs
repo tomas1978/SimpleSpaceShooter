@@ -18,6 +18,7 @@ namespace SimpleSpaceShooter
 
         Texture2D enemy;
         int enemyDirection = -1;
+        Vector2 enemySpeed = new Vector2(1, 0);
         Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
 
         Texture2D shot;
@@ -66,11 +67,17 @@ namespace SimpleSpaceShooter
             }
 
             if (enemyRect.X > 700 || enemyRect.X < 0)
-                enemyDirection *= -1;
-            enemyRect.X += enemyDirection;
-            enemyRect.X += enemyDirection;
-            
-            if (kstate.IsKeyDown(Keys.Space)) {
+                enemySpeed.X *= -1;
+            //denemyRect.Location = new Point(enemyRect.X + (int)enemySpeed.X);
+
+                /*
+                if (enemyRect.X > 700 || enemyRect.X < 0)
+                    enemyDirection *= -1;
+                enemyRect.X += enemyDirection;
+                enemyRect.X += enemyDirection;
+                */
+
+                if (kstate.IsKeyDown(Keys.Space)) {
                 Rectangle shotRect1 = new Rectangle(playerSpr.spriteRect.X + 8, 
                                         playerSpr.spriteRect.Y + 20, 5, 20);
                 Rectangle shotRect2 = new Rectangle(playerSpr.spriteRect.X + playerSpr.spriteRect.Width-15, 
