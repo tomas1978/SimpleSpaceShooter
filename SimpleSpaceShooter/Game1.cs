@@ -17,6 +17,7 @@ namespace SimpleSpaceShooter
         Sprite playerSpr;
 
         Texture2D enemy;
+        Sprite enemySpr;
         int enemyDirection = -1;
         Vector2 enemySpeed = new Vector2(1, 0);
         Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
@@ -49,6 +50,7 @@ namespace SimpleSpaceShooter
             shot = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
             playerSpr = new Sprite(300, 350, player);
+            enemySpr = new Sprite(300, 100, enemy);
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,16 +70,17 @@ namespace SimpleSpaceShooter
 
             if (enemyRect.X > 700 || enemyRect.X < 0)
                 enemySpeed.X *= -1;
-            //denemyRect.Location = new Point(enemyRect.X + (int)enemySpeed.X);
+            enemySpr.Move(enemySpr.spriteRect.X + (int)enemySpeed.X, 0);
+            //enemyRect.Location = new Point(enemyRect.X + (int)enemySpeed.X, 0);
 
-                /*
-                if (enemyRect.X > 700 || enemyRect.X < 0)
-                    enemyDirection *= -1;
-                enemyRect.X += enemyDirection;
-                enemyRect.X += enemyDirection;
-                */
+            /*
+            if (enemyRect.X > 700 || enemyRect.X < 0)
+                enemyDirection *= -1;
+            enemyRect.X += enemyDirection;
+            enemyRect.X += enemyDirection;
+            */
 
-                if (kstate.IsKeyDown(Keys.Space)) {
+            if (kstate.IsKeyDown(Keys.Space)) {
                 Rectangle shotRect1 = new Rectangle(playerSpr.spriteRect.X + 8, 
                                         playerSpr.spriteRect.Y + 20, 5, 20);
                 Rectangle shotRect2 = new Rectangle(playerSpr.spriteRect.X + playerSpr.spriteRect.Width-15, 
@@ -90,9 +93,11 @@ namespace SimpleSpaceShooter
             {
                 Rectangle r = shotRectangles[i];
                 shotRectangles[i] = new Rectangle(r.X, r.Y - 5, r.Width, r.Height);
-                if (shotRectangles[i].Intersects(enemyRect))
+                //if (shotRectangles[i].Intersects(enemyRect))
+                if (shotRectangles[i].Intersects(enemySpr.spriteRect))
                 {
-                    enemyRect.Y -= 1;
+                    //enemyRect.Y -= 1;
+                    enemySpr.Move(0, -1);
                     score++;
                 }
             }
@@ -108,7 +113,8 @@ namespace SimpleSpaceShooter
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             _spriteBatch.Draw(playerSpr.spriteTexture, playerSpr.spriteRect, Color.White);
-            _spriteBatch.Draw(enemy, enemyRect, Color.White);
+            //_spriteBatch.Draw(enemy, enemyRect, Color.White);
+            _spriteBatch.Draw(enemySpr.spriteTexture, enemySpr.spriteRect, Color.White);
             foreach(Rectangle shotRect in shotRectangles)
                 _spriteBatch.Draw(shot, shotRect, Color.White);
             _spriteBatch.End();
