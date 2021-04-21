@@ -20,15 +20,16 @@ namespace SimpleSpaceShooter
         Vector2 enemySpeed = new Vector2(1, 0);
         Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
 
-        Texture2D shot;
-        List<Rectangle> shotRectangles;
+        Texture2D shotTexture;
+        Sprite shot;
+        List<Sprite> playerShots;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            shotRectangles = new List<Rectangle>();
+            playerShots = new List<Sprite>();
         }
 
         protected override void Initialize()
@@ -42,10 +43,9 @@ namespace SimpleSpaceShooter
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             Texture2D playerTexture = Content.Load<Texture2D>("spaceship96");
             Texture2D enemyTexture = Content.Load<Texture2D>("alien");
-            shot = Content.Load<Texture2D>("blasterbolt");
+            shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
             player = new Sprite(300, 350, playerTexture);
             enemy = new Sprite(300, 100, enemyTexture);
@@ -71,24 +71,28 @@ namespace SimpleSpaceShooter
             enemy.Move((int)enemySpeed.X, 0);
      
             if (kstate.IsKeyDown(Keys.Space)) {
-                Rectangle shotRect1 = new Rectangle(player.spriteRect.X + 8, 
-                                        player.spriteRect.Y + 20, 5, 20);
-                Rectangle shotRect2 = new Rectangle(player.spriteRect.X + player.spriteRect.Width-15, 
-                                        player.spriteRect.Y+20, 5, 20);
-                shotRectangles.Add(shotRect1);
-                shotRectangles.Add(shotRect2);
+                Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, shotTexture);
+                Sprite rightShot = new Sprite(player.spriteRect.X + player.spriteRect.Width - 29, 
+                                                player.spriteRect.Y + 20, shotTexture);
+
+                playerShots.Add(leftShot);
+                playerShots.Add(rightShot);
             }
 
-            for (int i=0;i<shotRectangles.Count;i++)
+            foreach(Sprite s in playerShots)
             {
-                Rectangle r = shotRectangles[i];
-                shotRectangles[i] = new Rectangle(r.X, r.Y - 5, r.Width, r.Height);
-                if (shotRectangles[i].Intersects(enemy.spriteRect))
+                s.Move(0, -3);
+            }
+
+            foreach(Sprite s in playerShots)
+            {
+                if(s.spriteRect.Intersects(enemy.spriteRect))
                 {
                     enemy.Move(0, -1);
                     score++;
                 }
             }
+
 
             base.Update(gameTime);
         }
@@ -97,13 +101,12 @@ namespace SimpleSpaceShooter
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
             _spriteBatch.Draw(enemy.spriteTexture, enemy.spriteRect, Color.White);
-            foreach(Rectangle shotRect in shotRectangles)
-                _spriteBatch.Draw(shot, shotRect, Color.White);
+            foreach(Sprite s in playerShots)
+                _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
