@@ -12,13 +12,12 @@ namespace SimpleSpaceShooter
 
         int score = 0;
         SpriteFont scoreFont;
-        Vector2 scorePos = new Vector2(5, 5);
+        Vector2 scorePos;
 
         Sprite player;
 
         Sprite enemy;
-        Vector2 enemySpeed = new Vector2(1, 0);
-        Rectangle enemyRect = new Rectangle(300, 100, 50, 50);
+        Vector2 enemySpeed;
 
         Texture2D shotTexture;
         Sprite shot;
@@ -35,7 +34,8 @@ namespace SimpleSpaceShooter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            scorePos = new Vector2(5, 5);
+            enemySpeed = new Vector2(1, 0);
             base.Initialize();
         }
 
