@@ -84,15 +84,22 @@ namespace SimpleSpaceShooter
                 s.Move(0, -3);
             }
 
+            Sprite shotToRemove = null;
+
             foreach(Sprite s in playerShots)
             {
                 if(s.spriteRect.Intersects(enemy.spriteRect))
                 {
                     enemy.Move(0, -1);
                     score++;
+                    shotToRemove = s;
                 }
             }
 
+            if(shotToRemove!=null)
+            {
+                playerShots.Remove(shotToRemove);
+            }
 
             base.Update(gameTime);
         }
