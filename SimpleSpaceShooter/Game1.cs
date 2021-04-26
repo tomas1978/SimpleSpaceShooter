@@ -57,11 +57,12 @@ namespace SimpleSpaceShooter
                 Exit();
 
             KeyboardState kstate = Keyboard.GetState();
-            if (kstate.IsKeyDown(Keys.Left))
+            if (kstate.IsKeyDown(Keys.Left) && player.spriteRect.X>0)
             {
                 player.Move(-1,0);
             }
-            if (kstate.IsKeyDown(Keys.Right))
+            if (kstate.IsKeyDown(Keys.Right) && player.spriteRect.X<
+                _graphics.PreferredBackBufferWidth - player.spriteRect.Width)
             {
                 player.Move(1, 0);
             }
