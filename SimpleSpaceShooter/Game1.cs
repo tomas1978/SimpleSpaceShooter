@@ -47,8 +47,8 @@ namespace SimpleSpaceShooter
             Texture2D enemyTexture = Content.Load<Texture2D>("alien");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
-            player = new Sprite(300, 350, playerTexture);
-            enemy = new Sprite(300, 100, enemyTexture);
+            player = new Sprite(300, 350, 1, playerTexture);
+            enemy = new Sprite(300, 100, 4, enemyTexture);
         }
 
         protected override void Update(GameTime gameTime)
@@ -72,9 +72,9 @@ namespace SimpleSpaceShooter
             enemy.Move((int)enemySpeed.X, 0);
      
             if (kstate.IsKeyDown(Keys.Space)) {
-                Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, shotTexture);
+                Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, 1, shotTexture);
                 Sprite rightShot = new Sprite(player.spriteRect.X + player.spriteRect.Width - 29, 
-                                                player.spriteRect.Y + 20, shotTexture);
+                                                player.spriteRect.Y + 20, 1, shotTexture);
 
                 playerShots.Add(leftShot);
                 playerShots.Add(rightShot);

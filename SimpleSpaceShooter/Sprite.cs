@@ -12,11 +12,13 @@ namespace SimpleSpaceShooter
     {
         Texture2D texture;
         Rectangle rect;
+        int energy;
 
-        public Sprite(int xpos, int ypos, Texture2D newTexture)
+        public Sprite(int newXpos, int newYpos, int newEnergy, Texture2D newTexture)
         {
             texture = newTexture;
-            rect = new Rectangle(xpos, ypos, texture.Width, texture.Height);
+            rect = new Rectangle(newXpos, newYpos, texture.Width, texture.Height);
+            energy = newEnergy;
         }
 
         public void Move(int x, int y)
@@ -39,5 +41,11 @@ namespace SimpleSpaceShooter
         {
             get { return rect; }
         }
+
+        public int Energy {
+            set{ energy = value; }
+            get { return energy; }
+         }
+           
     }
 }
