@@ -94,6 +94,11 @@ namespace SimpleSpaceShooter
                     enemy.Move(0, -1);
                     score++;
                     shotToRemove = s;
+                    enemy.Energy--;
+                    if(enemy.Energy<0)
+                    {
+                        score += 1000;
+                    }
                 }
             }
 
