@@ -18,6 +18,7 @@ namespace SimpleSpaceShooter
 
         Sprite enemy;
         Vector2 enemySpeed;
+        List<Sprite> enemyFleet;
 
         Texture2D shotTexture;
         Sprite shot;
