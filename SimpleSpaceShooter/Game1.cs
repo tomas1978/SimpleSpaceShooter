@@ -32,11 +32,12 @@ namespace SimpleSpaceShooter
             playerShots = new List<Sprite>();
         }
 
-        protected override void Initialize()
+         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             scorePos = new Vector2(5, 5);
             enemySpeed = new Vector2(1, 0);
+            enemyFleet = new List<Sprite>();
             base.Initialize();
         }
 
@@ -50,6 +51,10 @@ namespace SimpleSpaceShooter
             scoreFont = Content.Load<SpriteFont>("scorefont");
             player = new Sprite(300, 350, 1, playerTexture);
             enemy = new Sprite(300, 100, 4, enemyTexture);
+            for(int i=0;i<5;i++)
+            {
+                enemyFleet.Add(new Sprite(300+50*i, 100, 4, enemyTexture));
+            }
         }
 
         protected override void Update(GameTime gameTime)
