@@ -32,7 +32,7 @@ namespace SimpleSpaceShooter
             playerShots = new List<Sprite>();
         }
 
-         protected override void Initialize()
+        protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             scorePos = new Vector2(5, 5);
@@ -125,6 +125,8 @@ namespace SimpleSpaceShooter
             _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
             _spriteBatch.Draw(enemy.spriteTexture, enemy.spriteRect, Color.White);
             foreach(Sprite s in playerShots)
+                _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
+            foreach(Sprite s in enemyFleet)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             _spriteBatch.End();
 
