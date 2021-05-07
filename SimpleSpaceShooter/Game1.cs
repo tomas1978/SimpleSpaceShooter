@@ -93,6 +93,11 @@ namespace SimpleSpaceShooter
 
             Sprite shotToRemove = null;
 
+            for(int i=0;i<enemyFleet.Count;i++)
+            {
+                enemyFleet[i].Move(1, 0);
+            }
+
             foreach(Sprite s in playerShots)
             {
                 if(s.spriteRect.Intersects(enemy.spriteRect))
