@@ -86,6 +86,11 @@ namespace SimpleSpaceShooter
                 playerShots.Add(rightShot);
             }
 
+            foreach(Sprite s in enemyFleet)
+            {
+                s.Move(1, 0);
+            }
+
             foreach(Sprite s in playerShots)
             {
                 s.Move(0, -3);
