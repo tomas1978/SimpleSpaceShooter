@@ -49,11 +49,11 @@ namespace SimpleSpaceShooter
             Texture2D enemyTexture = Content.Load<Texture2D>("alien");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
-            player = new Sprite(300, 350, 1, playerTexture);
-            enemy = new Sprite(300, 100, 4, enemyTexture);
+            player = new Sprite(300, 350, 1, 0, playerTexture);
+            enemy = new Sprite(300, 100, 4, 1, enemyTexture);
             for(int i=0;i<5;i++)
             {
-                enemyFleet.Add(new Sprite(300+50*i, 100, 4, enemyTexture));
+                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 0, enemyTexture));
             }
         }
 
@@ -78,9 +78,9 @@ namespace SimpleSpaceShooter
             enemy.Move((int)enemySpeed.X, 0);
      
             if (kstate.IsKeyDown(Keys.Space)) {
-                Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, 1, shotTexture);
+                Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, 1, 0, shotTexture);
                 Sprite rightShot = new Sprite(player.spriteRect.X + player.spriteRect.Width - 29, 
-                                                player.spriteRect.Y + 20, 1, shotTexture);
+                                                player.spriteRect.Y + 20, 1, 0, shotTexture);
 
                 playerShots.Add(leftShot);
                 playerShots.Add(rightShot);
@@ -88,7 +88,9 @@ namespace SimpleSpaceShooter
 
             foreach(Sprite s in enemyFleet)
             {
-                s.Move(1, 0);
+                if (s.spriteRect.X > _graphics.PreferredBackBufferWidth || s.spriteRect.X < 0)
+                    enemySpeed *= -1;
+                s.Move((int)enemySpeed.X, 0);
             }
 
             foreach(Sprite s in playerShots)

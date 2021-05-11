@@ -13,12 +13,14 @@ namespace SimpleSpaceShooter
         Texture2D texture;
         Rectangle rect;
         int energy;
+        int direction;
 
-        public Sprite(int newXpos, int newYpos, int newEnergy, Texture2D newTexture)
+        public Sprite(int newXpos, int newYpos, int newEnergy, int newDirection, Texture2D newTexture)
         {
             texture = newTexture;
             rect = new Rectangle(newXpos, newYpos, texture.Width, texture.Height);
             energy = newEnergy;
+            direction = newDirection;
         }
 
         public void Move(int x, int y)
@@ -46,6 +48,12 @@ namespace SimpleSpaceShooter
             set{ energy = value; }
             get { return energy; }
          }
+
+        public int Direction
+        {
+            set { direction = value; }
+            get { return direction; }
+        }
            
     }
 }
