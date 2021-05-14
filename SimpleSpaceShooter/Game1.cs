@@ -89,7 +89,7 @@ namespace SimpleSpaceShooter
             foreach(Sprite s in enemyFleet)
             {
                 if (s.spriteRect.X > _graphics.PreferredBackBufferWidth || s.spriteRect.X < 0)
-                    enemySpeed *= -1;
+                    s.Direction *= -1;
                 s.Move(s.Direction*(int)enemySpeed.X, 0);
             }
 
