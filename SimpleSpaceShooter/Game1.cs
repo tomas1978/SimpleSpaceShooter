@@ -53,7 +53,7 @@ namespace SimpleSpaceShooter
             enemy = new Sprite(300, 100, 4, 1, enemyTexture);
             for(int i=0;i<5;i++)
             {
-                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 0, enemyTexture));
+                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, enemyTexture));
             }
         }
 
@@ -99,11 +99,6 @@ namespace SimpleSpaceShooter
             }
 
             Sprite shotToRemove = null;
-
-            for(int i=0;i<enemyFleet.Count;i++)
-            {
-                enemyFleet[i].Move(1, 0);
-            }
 
             foreach(Sprite s in playerShots)
             {
