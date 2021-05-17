@@ -115,6 +115,17 @@ namespace SimpleSpaceShooter
                 }
             }
 
+            foreach(Sprite s in playerShots)
+            {
+                foreach(Sprite e in enemyFleet)
+                {
+                    if(s.spriteRect.Intersects(e.spriteRect))
+                    {
+                        e.Move(0, -1);
+                    }
+                }
+            }
+
             if(shotToRemove!=null)
             {
                 playerShots.Remove(shotToRemove);
