@@ -16,12 +16,10 @@ namespace SimpleSpaceShooter
 
         Sprite player;
 
-        Sprite enemy;
         Vector2 enemySpeed;
         List<Sprite> enemyFleet;
 
         Texture2D shotTexture;
-        Sprite shot;
         List<Sprite> playerShots;
 
         public Game1()
@@ -34,7 +32,6 @@ namespace SimpleSpaceShooter
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             scorePos = new Vector2(5, 5);
             enemySpeed = new Vector2(1, 0);
             enemyFleet = new List<Sprite>();
@@ -50,7 +47,6 @@ namespace SimpleSpaceShooter
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
             player = new Sprite(300, 350, 1, 0, playerTexture);
-            enemy = new Sprite(300, 100, 4, 1, enemyTexture);
             for(int i=0;i<5;i++)
             {
                 enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, enemyTexture));
@@ -73,10 +69,6 @@ namespace SimpleSpaceShooter
                 player.Move(1, 0);
             }
 
-            if (enemy.spriteRect.X > 700 || enemy.spriteRect.X < 0)
-                enemySpeed.X *= -1;
-            enemy.Move((int)enemySpeed.X, 0);
-     
             if (kstate.IsKeyDown(Keys.Space)) {
                 Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, 1, 0, shotTexture);
                 Sprite rightShot = new Sprite(player.spriteRect.X + player.spriteRect.Width - 29, 
@@ -102,26 +94,15 @@ namespace SimpleSpaceShooter
 
             foreach(Sprite s in playerShots)
             {
-                if(s.spriteRect.Intersects(enemy.spriteRect))
-                {
-                    enemy.Move(0, -1);
-                    score++;
-                    shotToRemove = s;
-                    enemy.Energy--;
-                    if(enemy.Energy<0)
-                    {
-                        score += 1000;
-                    }
-                }
-            }
-
-            foreach(Sprite s in playerShots)
-            {
                 foreach(Sprite e in enemyFleet)
                 {
                     if(s.spriteRect.Intersects(e.spriteRect))
                     {
                         e.Move(0, -1);
+                        shotToRemove = s;
+                        e.Energy--;
+                        if (e.Energy < 0)
+                            score += 1;
                     }
                 }
             }
@@ -141,7 +122,6 @@ namespace SimpleSpaceShooter
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
-            _spriteBatch.Draw(enemy.spriteTexture, enemy.spriteRect, Color.White);
             foreach(Sprite s in playerShots)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             foreach(Sprite s in enemyFleet)
