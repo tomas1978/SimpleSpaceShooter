@@ -91,6 +91,7 @@ namespace SimpleSpaceShooter
             }
 
             Sprite shotToRemove = null;
+            Sprite enemyToRemove = null;
 
             foreach(Sprite s in playerShots)
             {
@@ -102,7 +103,10 @@ namespace SimpleSpaceShooter
                         shotToRemove = s;
                         e.Energy--;
                         if (e.Energy < 0)
+                        {
                             score += 1;
+                            enemyToRemove = e;
+                        }
                     }
                 }
             }
@@ -110,6 +114,11 @@ namespace SimpleSpaceShooter
             if(shotToRemove!=null)
             {
                 playerShots.Remove(shotToRemove);
+            }
+
+            if(enemyToRemove!=null)
+            {
+                enemyFleet.Remove(enemyToRemove);
             }
 
             base.Update(gameTime);
