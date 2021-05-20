@@ -15,12 +15,14 @@ namespace SimpleSpaceShooter
         Vector2 scorePos;
 
         Sprite player;
+        bool gameOver = false;
 
         Vector2 enemySpeed;
         List<Sprite> enemyFleet;
 
         Texture2D shotTexture;
         List<Sprite> playerShots;
+        List<Sprite> enemyShots;
 
         public Game1()
         {
@@ -46,7 +48,7 @@ namespace SimpleSpaceShooter
             Texture2D enemyTexture = Content.Load<Texture2D>("alien");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
-            player = new Sprite(300, 350, 1, 0, playerTexture);
+            player = new Sprite(300, 350, 1, 5, playerTexture);
             for(int i=0;i<5;i++)
             {
                 enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, enemyTexture));
@@ -78,7 +80,13 @@ namespace SimpleSpaceShooter
                 playerShots.Add(rightShot);
             }
 
-            foreach(Sprite s in enemyFleet)
+            foreach (Sprite e in enemyFleet)
+            {
+                enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, shotTexture));
+            }
+
+
+            foreach (Sprite s in enemyFleet)
             {
                 if (s.spriteRect.X > _graphics.PreferredBackBufferWidth || s.spriteRect.X < 0)
                     s.Direction *= -1;
@@ -120,6 +128,7 @@ namespace SimpleSpaceShooter
             {
                 enemyFleet.Remove(enemyToRemove);
             }
+
 
             base.Update(gameTime);
         }
