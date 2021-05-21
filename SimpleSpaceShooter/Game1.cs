@@ -30,6 +30,7 @@ namespace SimpleSpaceShooter
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             playerShots = new List<Sprite>();
+            enemyShots = new List<Sprite>();
         }
 
         protected override void Initialize()
@@ -84,7 +85,6 @@ namespace SimpleSpaceShooter
             {
                 enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, shotTexture));
             }
-
 
             foreach (Sprite s in enemyFleet)
             {
@@ -142,7 +142,9 @@ namespace SimpleSpaceShooter
             _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
             foreach(Sprite s in playerShots)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
-            foreach(Sprite s in enemyFleet)
+            foreach (Sprite s in enemyShots)
+                _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.Red);
+            foreach (Sprite s in enemyFleet)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             _spriteBatch.End();
 
