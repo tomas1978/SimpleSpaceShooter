@@ -86,6 +86,11 @@ namespace SimpleSpaceShooter
                 enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, shotTexture));
             }
 
+            foreach (Sprite s in enemyShots)
+            {
+                s.Move(0, 1);
+            }
+
             foreach (Sprite s in enemyFleet)
             {
                 if (s.spriteRect.X > _graphics.PreferredBackBufferWidth || s.spriteRect.X < 0)
