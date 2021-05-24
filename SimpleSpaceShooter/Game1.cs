@@ -24,6 +24,8 @@ namespace SimpleSpaceShooter
         List<Sprite> playerShots;
         List<Sprite> enemyShots;
 
+        Texture2D enemyShotTexture;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -47,6 +49,7 @@ namespace SimpleSpaceShooter
 
             Texture2D playerTexture = Content.Load<Texture2D>("spaceship96");
             Texture2D enemyTexture = Content.Load<Texture2D>("alien");
+            enemyShotTexture = Content.Load<Texture2D>("blasterboltEnemy");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
             player = new Sprite(300, 350, 1, 5, playerTexture);
@@ -83,7 +86,7 @@ namespace SimpleSpaceShooter
 
             foreach (Sprite e in enemyFleet)
             {
-                enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, shotTexture));
+                enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, enemyShotTexture));
             }
 
             foreach (Sprite s in enemyShots)
@@ -148,7 +151,7 @@ namespace SimpleSpaceShooter
             foreach(Sprite s in playerShots)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             foreach (Sprite s in enemyShots)
-                _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.Red);
+                _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             foreach (Sprite s in enemyFleet)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             _spriteBatch.End();
