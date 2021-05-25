@@ -14,6 +14,8 @@ namespace SimpleSpaceShooter
         Rectangle rect;
         int energy;
         int direction;
+        int lastShotTime;
+        int fireRate;
 
         public Sprite(int newXpos, int newYpos, int newEnergy, int newDirection, Texture2D newTexture)
         {
@@ -27,6 +29,11 @@ namespace SimpleSpaceShooter
         {
             rect.X += x;
             rect.Y += y;
+        }
+
+        public bool ReadyToFire()
+        {
+            return false;
         }
 
         public void Move2(Vector2 mVector)
