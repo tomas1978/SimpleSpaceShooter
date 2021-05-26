@@ -26,6 +26,8 @@ namespace SimpleSpaceShooter
 
         Texture2D enemyShotTexture;
 
+        GameTime gameTime;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -33,6 +35,7 @@ namespace SimpleSpaceShooter
             IsMouseVisible = true;
             playerShots = new List<Sprite>();
             enemyShots = new List<Sprite>();
+            gameTime = new GameTime();
         }
 
         protected override void Initialize()
