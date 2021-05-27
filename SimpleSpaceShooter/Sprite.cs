@@ -61,6 +61,17 @@ namespace SimpleSpaceShooter
             set { direction = value; }
             get { return direction; }
         }
-           
+        
+        public int FireRate
+        {
+            set { fireRate = value; }
+            get { return fireRate; }
+        }
+
+        public int LastShotTime
+        {
+            set { lastShotTime = value; }
+            get { return lastShotTime; }
+        }
     }
 }
