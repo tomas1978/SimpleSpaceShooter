@@ -33,7 +33,13 @@ namespace SimpleSpaceShooter
 
         public bool ReadyToFire()
         {
-            return false;
+            if (lastShotTime > fireRate)
+            {
+                lastShotTime = 0;
+                return true;
+            }
+            else
+                return false;
         }
 
         public void Move2(Vector2 mVector)

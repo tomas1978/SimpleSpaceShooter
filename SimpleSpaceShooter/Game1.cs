@@ -77,8 +77,8 @@ namespace SimpleSpaceShooter
             {
                 player.Move(1, 0);
             }
-
-            if (kstate.IsKeyDown(Keys.Space)) {
+            player.LastShotTime++;
+            if (kstate.IsKeyDown(Keys.Space) && player.ReadyToFire()) {
                 Sprite leftShot = new Sprite(player.spriteRect.X, player.spriteRect.Y + 20, 1, 0, shotTexture);
                 Sprite rightShot = new Sprite(player.spriteRect.X + player.spriteRect.Width - 29, 
                                                 player.spriteRect.Y + 20, 1, 0, shotTexture);
