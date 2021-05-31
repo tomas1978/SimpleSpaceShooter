@@ -17,12 +17,13 @@ namespace SimpleSpaceShooter
         int lastShotTime;
         int fireRate;
 
-        public Sprite(int newXpos, int newYpos, int newEnergy, int newDirection, Texture2D newTexture)
+        public Sprite(int newXpos, int newYpos, int newEnergy, int newDirection, int newFRate, Texture2D newTexture)
         {
             texture = newTexture;
             rect = new Rectangle(newXpos, newYpos, texture.Width, texture.Height);
             energy = newEnergy;
             direction = newDirection;
+            fireRate = newFRate;
         }
 
         public void Move(int x, int y)
