@@ -58,7 +58,7 @@ namespace SimpleSpaceShooter
             player = new Sprite(300, 350, 1, 5, 10, playerTexture);
             for(int i=0;i<5;i++)
             {
-                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 0, enemyTexture));
+                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 25, enemyTexture));
             }
         }
 
@@ -91,7 +91,9 @@ namespace SimpleSpaceShooter
 
             foreach (Sprite e in enemyFleet)
             {
-                enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, 0, enemyShotTexture));
+                e.LastShotTime++;
+                if (e.ReadyToFire())
+                    enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, 0, enemyShotTexture));
             }
 
             foreach (Sprite s in enemyShots)
