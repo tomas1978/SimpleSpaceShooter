@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace SimpleSpaceShooter
@@ -28,6 +29,8 @@ namespace SimpleSpaceShooter
 
         GameTime gameTime;
 
+        Random rand;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -36,6 +39,7 @@ namespace SimpleSpaceShooter
             playerShots = new List<Sprite>();
             enemyShots = new List<Sprite>();
             gameTime = new GameTime();
+            rand = new Random();
         }
 
         protected override void Initialize()
@@ -58,7 +62,7 @@ namespace SimpleSpaceShooter
             player = new Sprite(300, 350, 1, 5, 10, playerTexture);
             for(int i=0;i<5;i++)
             {
-                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 25, enemyTexture));
+                enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 30+rand.Next(0,100), enemyTexture));
             }
         }
 
