@@ -125,6 +125,10 @@ namespace SimpleSpaceShooter
                     player.Move(0, 1);
                 }
             }
+            if(player.Energy<1)
+            {
+                gameOver = true;
+            }
 
             Sprite shotToRemove = null;
             Sprite enemyToRemove = null;
