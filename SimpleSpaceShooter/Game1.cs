@@ -77,7 +77,7 @@ namespace SimpleSpaceShooter
                 player.Move(-1,0);
             }
             if (kstate.IsKeyDown(Keys.Right) && player.spriteRect.X<
-                _graphics.PreferredBackBufferWidth - player.spriteRect.Width)
+                _graphics.PreferredBackBufferWidth - player.spriteRect.Width && !gameOver)
             {
                 player.Move(1, 0);
             }
@@ -117,17 +117,20 @@ namespace SimpleSpaceShooter
                 s.Move(0, -3);
             }
 
-            foreach(Sprite s in enemyShots)
+            if (!gameOver)
             {
-                if(s.spriteRect.Intersects(player.spriteRect))
+                foreach (Sprite s in enemyShots)
                 {
-                    player.Energy--;
-                    player.Move(0, 1);
+                    if (s.spriteRect.Intersects(player.spriteRect))
+                    {
+                        player.Energy--;
+                        player.Move(0, 1);
+                    }
                 }
-            }
-            if(player.Energy<1)
-            {
-                gameOver = true;
+                if (player.Energy < 1)
+                {
+                    gameOver = true;
+                }
             }
 
             Sprite shotToRemove = null;
