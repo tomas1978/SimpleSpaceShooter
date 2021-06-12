@@ -174,7 +174,8 @@ namespace SimpleSpaceShooter
 
             _spriteBatch.Begin();
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
-            _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
+            if(!gameOver)
+                _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
             foreach(Sprite s in playerShots)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             foreach (Sprite s in enemyShots)
