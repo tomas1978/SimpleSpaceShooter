@@ -59,7 +59,7 @@ namespace SimpleSpaceShooter
             enemyShotTexture = Content.Load<Texture2D>("blasterboltEnemy");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
-            player = new Sprite(300, 350, 3, 5, 10, playerTexture);
+            player = new Sprite(300, 350, 20, 5, 10, playerTexture);
             for(int i=0;i<5;i++)
             {
                 enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 30+rand.Next(0,100), enemyTexture));
@@ -117,6 +117,7 @@ namespace SimpleSpaceShooter
                 s.Move(0, -3);
             }
 
+            Sprite shotToRemove = null;
             if (!gameOver)
             {
                 foreach (Sprite s in enemyShots)
@@ -125,15 +126,18 @@ namespace SimpleSpaceShooter
                     {
                         player.Energy--;
                         player.Move(0, 1);
+                        shotToRemove = s;
                     }
                 }
                 if (player.Energy < 1)
                 {
                     gameOver = true;
                 }
+                if (shotToRemove != null)
+                    enemyShots.Remove(shotToRemove);
             }
 
-            Sprite shotToRemove = null;
+           
             Sprite enemyToRemove = null;
 
             foreach(Sprite s in playerShots)
