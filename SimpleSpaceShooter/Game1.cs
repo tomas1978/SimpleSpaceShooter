@@ -125,6 +125,7 @@ namespace SimpleSpaceShooter
                     if (s.spriteRect.Intersects(player.spriteRect))
                     {
                         player.Energy--;
+                        score -= 1;
                         player.Move(0, 1);
                         shotToRemove = s;
                     }
