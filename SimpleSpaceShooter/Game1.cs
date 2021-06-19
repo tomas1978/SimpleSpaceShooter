@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -26,6 +27,8 @@ namespace SimpleSpaceShooter
         List<Sprite> enemyShots;
 
         Texture2D enemyShotTexture;
+
+        SoundEffect explosion;
 
         GameTime gameTime;
 
@@ -59,6 +62,7 @@ namespace SimpleSpaceShooter
             enemyShotTexture = Content.Load<Texture2D>("blasterboltEnemy");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
+            explosion = Content.Load<SoundEffect>("explosion");
             player = new Sprite(300, 350, 20, 5, 10, playerTexture);
             for(int i=0;i<5;i++)
             {
