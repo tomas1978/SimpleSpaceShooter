@@ -64,8 +64,7 @@ namespace SimpleSpaceShooter
             scoreFont = Content.Load<SpriteFont>("scorefont");
             explosion = Content.Load<SoundEffect>("explosion");
             player = new Sprite(300, 350, 20, 5, 10, playerTexture);
-            for(int i=0;i<5;i++)
-            {
+            for(int i=0;i<5;i++) {
                 enemyFleet.Add(new Sprite(300+50*i, 100, 4, 1, 30+rand.Next(0,100), enemyTexture));
             }
         }
@@ -76,14 +75,20 @@ namespace SimpleSpaceShooter
                 Exit();
 
             KeyboardState kstate = Keyboard.GetState();
-            if (kstate.IsKeyDown(Keys.Left) && player.spriteRect.X>0 && !gameOver)
-            {
+            if (kstate.IsKeyDown(Keys.Left) && player.spriteRect.X>0 && !gameOver) {
                 player.Move(-1,0);
             }
             if (kstate.IsKeyDown(Keys.Right) && player.spriteRect.X<
-                _graphics.PreferredBackBufferWidth - player.spriteRect.Width && !gameOver)
-            {
+                _graphics.PreferredBackBufferWidth - player.spriteRect.Width && !gameOver) {
                 player.Move(1, 0);
+            }
+
+            if(gameOver)
+            {
+                if(kstate.IsKeyDown(Keys.Home)) {
+                    score = 0;
+                    gameOver = false;
+                }
             }
 
             player.LastShotTime++;
@@ -97,65 +102,52 @@ namespace SimpleSpaceShooter
                 playerShots.Add(rightShot);
             }
 
-            foreach (Sprite e in enemyFleet)
-            {
+            foreach (Sprite e in enemyFleet) {
                 e.LastShotTime++;
                 if (e.ReadyToFire())
                     enemyShots.Add(new Sprite(e.spriteRect.X, e.spriteRect.Y, 1, -1, 0, enemyShotTexture));
             }
 
-            foreach (Sprite s in enemyShots)
-            {
+            foreach (Sprite s in enemyShots) {
                 s.Move(0, 1);
             }
 
-            foreach (Sprite s in enemyFleet)
-            {
+            foreach (Sprite s in enemyFleet) {
                 if (s.spriteRect.X > _graphics.PreferredBackBufferWidth || s.spriteRect.X < 0)
                     s.Direction *= -1;
                 s.Move(s.Direction*(int)enemySpeed.X, 0);
             }
 
-            foreach(Sprite s in playerShots)
-            {
+            foreach(Sprite s in playerShots) {
                 s.Move(0, -3);
             }
 
             Sprite shotToRemove = null;
-            if (!gameOver)
-            {
-                foreach (Sprite s in enemyShots)
-                {
-                    if (s.spriteRect.Intersects(player.spriteRect))
-                    {
+            if (!gameOver) {
+                foreach (Sprite s in enemyShots) {
+                    if (s.spriteRect.Intersects(player.spriteRect)) {
                         player.Energy--;
                         score -= 1;
                         player.Move(0, 1);
                         shotToRemove = s;
                     }
                 }
-                if (player.Energy < 1)
-                {
+                if (player.Energy < 1) {
                     gameOver = true;
                 }
                 if (shotToRemove != null)
                     enemyShots.Remove(shotToRemove);
             }
-
            
             Sprite enemyToRemove = null;
 
-            foreach(Sprite s in playerShots)
-            {
-                foreach(Sprite e in enemyFleet)
-                {
-                    if(s.spriteRect.Intersects(e.spriteRect))
-                    {
+            foreach(Sprite s in playerShots) {
+                foreach(Sprite e in enemyFleet) {
+                    if(s.spriteRect.Intersects(e.spriteRect)) {
                         e.Move(0, -1);
                         shotToRemove = s;
                         e.Energy--;
-                        if (e.Energy < 0)
-                        {
+                        if (e.Energy < 0) {
                             score += 1;
                             enemyToRemove = e;
                         }
@@ -163,16 +155,13 @@ namespace SimpleSpaceShooter
                 }
             }
 
-            if(shotToRemove!=null)
-            {
+            if(shotToRemove!=null) {
                 playerShots.Remove(shotToRemove);
             }
 
-            if(enemyToRemove!=null)
-            {
+            if(enemyToRemove!=null) {
                 enemyFleet.Remove(enemyToRemove);
             }
-
 
             base.Update(gameTime);
         }
