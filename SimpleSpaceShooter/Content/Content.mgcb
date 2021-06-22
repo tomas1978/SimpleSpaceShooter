@@ -62,6 +62,12 @@
 /processorParam:TextureFormat=Compressed
 /build:File.spritefont;scorefont.spritefont
 
+#begin shortExplosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:shortExplosion.wav
+
 #begin spaceship.png
 /importer:TextureImporter
 /processor:TextureProcessor
