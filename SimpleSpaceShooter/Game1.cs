@@ -88,6 +88,7 @@ namespace SimpleSpaceShooter
                 if(kstate.IsKeyDown(Keys.Home)) {
                     score = 0;
                     gameOver = false;
+                    player.Energy = 20;
                 }
             }
 
