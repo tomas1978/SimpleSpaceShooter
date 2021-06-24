@@ -15,6 +15,8 @@ namespace SimpleSpaceShooter
         int score = 0;
         SpriteFont scoreFont;
         Vector2 scorePos;
+        SpriteFont gameOverFont;
+        Vector2 gameOverPos;
 
         Sprite player;
         bool gameOver = false;
@@ -48,6 +50,7 @@ namespace SimpleSpaceShooter
         protected override void Initialize()
         {
             scorePos = new Vector2(5, 5);
+            gameOverPos = new Vector2(100, 100);
             enemySpeed = new Vector2(1, 0);
             enemyFleet = new List<Sprite>();
             base.Initialize();
@@ -62,6 +65,7 @@ namespace SimpleSpaceShooter
             enemyShotTexture = Content.Load<Texture2D>("blasterboltEnemy");
             shotTexture = Content.Load<Texture2D>("blasterbolt");
             scoreFont = Content.Load<SpriteFont>("scorefont");
+            gameOverFont = Content.Load<SpriteFont>("gameover.spritefont");
             explosion = Content.Load<SoundEffect>("shortExplosion");
             player = new Sprite(300, 350, 20, 5, 10, playerTexture);
             for(int i=0;i<5;i++) {
@@ -176,6 +180,11 @@ namespace SimpleSpaceShooter
             _spriteBatch.DrawString(scoreFont, "Score: "+score, scorePos, Color.White);
             if(!gameOver)
                 _spriteBatch.Draw(player.spriteTexture, player.spriteRect, Color.White);
+            if (gameOver) {
+                _spriteBatch.DrawString(gameOverFont, "Game Over", gameOverPos, Color.White);
+                _spriteBatch.DrawString(gameOverFont, "Press Home to restart", 
+                    new Vector2(60, 140), Color.White);
+            }
             foreach(Sprite s in playerShots)
                 _spriteBatch.Draw(s.spriteTexture, s.spriteRect, Color.White);
             foreach (Sprite s in enemyShots)
